@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    
+<body> 
+    <a href="create/">Create a Lead</a>
     {% for lead in leads %}
     <ul>
         <li><a href="{{ lead.pk }}/">{{ lead.first_name }} {{ lead.last_name }}</a> {{ lead.age }} {{ lead.agent }}</li>
