@@ -45,21 +45,35 @@ def detail(request, pk):
 def create(request):
     form = LeadModelForm()
     if request.method == "POST":
-        print('getting a post request')
+        # print('getting a post request')
         form = LeadModelForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect(index) 
     context = {
         'form': form
+
     }   
     # lead = Lead.objects.create()
     return render(request, 'leads/create.html', context)
 
 
-def detail(request, pk):
+def update(request, pk):
     lead = Lead.objects.get(id=pk)
+    form = LeadModelForm(instance=lead)
+    if request.method == "POST":
+
+        form = LeadModelForm(request.POST, instance=lead)
+        if form.is_valid():
+            form.save()
+            return redirect(index) 
     context = {
-        'lead': lead
+        'lead': lead,
+        'form': form
     }
     return render(request, 'leads/update.html', context)
+
+def delete(request, pk):
+    lead = Lead.objects.get(id=pk)
+    lead.delete()
+    return redirect(index) 

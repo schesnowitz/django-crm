@@ -7,9 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-<a href="{% url 'leads:index'%}">All Leads</a>
-<p>{{ lead.first_name }}</p>
-<a href="{% url 'leads:update' lead.pk %}">Update</a>
-<a href="{% url 'leads:delete' lead.pk %}">Delete</a>
+    <form method="POST">
+        {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Update</button>
+    </form>
 </body>
 </html>
