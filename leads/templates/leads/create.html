@@ -1,19 +1,32 @@
-{% extends "leads/base.html" %}
-
-{% block content %}
-<section class="text-gray-600 body-font">
-    <div class="container px-5 py-24 mx-auto">
-      <div class="lg:w-2/3 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
-        <p class="flex-grow sm:pr-16 text-2xl font-medium title-font text-gray-900">Slow-carb next level shoindxgoitch ethical authentic, scenester sriracha forage.</p>
+{% extends "leads/base.html" %} {% block content %}
+<section class="text-gray-600 body-font relative">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-col text-center w-full mb-12">
+      <h1
+        class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900"
+      >
+        Create a Lead
+      </h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+        Remember to assign the lead while creating it.
+      </p>
+    </div>
+    <div class="lg:w-1/2 md:w-2/3 mx-auto">
+      <div class="flex flex-wrap -m-2">
         <form method="POST">
-            {% csrf_token %}
-            {{form.as_p}}
-            <button type="submit" class="flex-shrink-0 text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-pink-600 rounded text-lg mt-10 sm:mt-0">Create</button>
-
+          {% csrf_token %} {{form.as_p}}
+          <div class="p-2 w-full">
+            <button
+              type="submit"
+              class="flex-shrink-0 text-white bg-pink-500 border-0 py-2 px-8 
+              focus:outline-none hover:bg-pink-600 rounded text-lg mt-10 sm:mt-0"
+            >
+              Create
+            </button>
+          </div>
         </form>
-        
       </div>
     </div>
-  </section>
-
+  </div>
+</section>
 {% endblock content %}
