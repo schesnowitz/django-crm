@@ -1,9 +1,24 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import (render, redirect, reverse) 
+# from django.urls import 
 from .models import Lead, Agent
 from .forms import LeadForm, LeadModelForm
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView 
+
+class LandingView(TemplateView):
+    template_name = 'landing.html'
 
 def landing_page(request):
-    return render(request, 'landing.html')
+    return render(request, )
+
+
+
+
+class IndexView(ListView):
+    template_name = 'leads/index.html'
+    queryset = Lead.objects.all()
+    context_object_name = 'leads'
+    # default is object_list
+
 
 def index(request):
     leads = Lead.objects.all()  
@@ -11,7 +26,16 @@ def index(request):
         'leads': leads
     }
     return render(request, 'leads/index.html', context)
-    
+
+
+
+
+class LeadDetailView(DetailView):
+    template_name = 'leads/detail.html'
+    queryset = Lead.objects.all()
+    context_object_name = 'lead'
+
+
 def detail(request, pk):
     lead = Lead.objects.get(id=pk)
     context = {
@@ -45,6 +69,18 @@ def detail(request, pk):
 #     # lead = Lead.objects.create()
 #     return render(request, 'leads/create.html', context)
 
+
+
+
+class LeadCreateView(CreateView):
+    template_name = 'leads/create.html'
+    form_class = LeadModelForm
+
+    def get_success_url(self):
+        # need to return reverse
+        return reverse('leads:index') 
+
+
 def create(request):
     form = LeadModelForm()
     if request.method == "POST":
@@ -61,6 +97,15 @@ def create(request):
     return render(request, 'leads/create.html', context)
 
 
+class LeadUpdateView(UpdateView):
+    template_name = 'leads/update.html'
+    queryset = Lead.objects.all()
+    form_class = LeadModelForm
+
+    def get_success_url(self):
+    # need to return reverse
+        return reverse('leads:index')
+
 def update(request, pk):
     lead = Lead.objects.get(id=pk)
     form = LeadModelForm(instance=lead)
@@ -75,6 +120,17 @@ def update(request, pk):
         'form': form
     }
     return render(request, 'leads/update.html', context)
+
+
+
+class LeadDeleteView(DeleteView):
+    template_name = 'leads/delete.html'
+    queryset = Lead.objects.all()
+
+    def get_success_url(self):
+    # need to return reverse
+        return reverse('leads:index')
+
 
 def delete(request, pk):
     lead = Lead.objects.get(id=pk)
